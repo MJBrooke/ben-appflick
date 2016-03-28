@@ -2,13 +2,13 @@ package com.brooke.michael.filmbuff.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.brooke.michael.filmbuff.R
 import com.brooke.michael.filmbuff.adapter.MovieListRVAdapter
+import com.brooke.michael.filmbuff.extensions.setupDefaultConfig
 import com.brooke.michael.filmbuff.extensions.toast
 import com.brooke.michael.filmbuff.rest.model.MovieList
 import com.brooke.michael.filmbuff.rest.service.RestClient
@@ -26,13 +26,11 @@ class ThisMonthFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        recycler_view.layoutManager = LinearLayoutManager(activity)
-        recycler_view.setHasFixedSize(true)
+        recycler_view.setupDefaultConfig(activity)
 
         RestClient.instance.getCurrentMovies(object : Callback<MovieList> {
             override fun success(movieList: MovieList, response: Response) {
-                val mAdapter = MovieListRVAdapter(movieList)
-                recycler_view.adapter = mAdapter
+                recycler_view.adapter = MovieListRVAdapter(movieList)
             }
 
             override fun failure(error: RetrofitError) {

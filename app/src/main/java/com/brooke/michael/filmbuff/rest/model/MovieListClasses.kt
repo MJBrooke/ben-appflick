@@ -1,6 +1,6 @@
 package com.brooke.michael.filmbuff.rest.model
 
-import java.util.*
+import java.util.ArrayList
 
 data class MovieList(val page: Int, val results: ArrayList<Movie>, val total_results: Int, val total_pages: Int)
 
