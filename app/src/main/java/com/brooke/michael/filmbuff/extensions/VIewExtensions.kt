@@ -1,7 +1,10 @@
 package com.brooke.michael.filmbuff.extensions
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,4 +26,9 @@ fun Fragment.toast(message: String) {
 
 fun FragmentActivity.changeFragment(fragmentContainer: Int, fragmentToChangeTo: Fragment){
     supportFragmentManager.beginTransaction().add(fragmentContainer, fragmentToChangeTo).commit()
+}
+
+fun RecyclerView.setupDefaultConfig(context: Context){
+    layoutManager = LinearLayoutManager(context)
+    setHasFixedSize(true)
 }
