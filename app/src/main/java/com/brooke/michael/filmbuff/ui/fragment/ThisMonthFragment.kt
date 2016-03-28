@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.brooke.michael.filmbuff.R
 import com.brooke.michael.filmbuff.adapter.MovieListRVAdapter
 import com.brooke.michael.filmbuff.extensions.setupDefaultConfig
+import com.brooke.michael.filmbuff.extensions.setupSwipeRefresh
 import com.brooke.michael.filmbuff.extensions.toast
 import com.brooke.michael.filmbuff.rest.model.MovieList
 import com.brooke.michael.filmbuff.rest.service.RestClient
@@ -26,14 +27,21 @@ class ThisMonthFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        recycler_view.setupDefaultConfig(activity)
 
+        recyclerView.setupDefaultConfig(activity)
+        swipeRefresh.setupSwipeRefresh { queryAPI() }
+        queryAPI()
+    }
+
+    private fun queryAPI(){
         RestClient.instance.getCurrentMovies(object : Callback<MovieList> {
             override fun success(movieList: MovieList, response: Response) {
-                recycler_view.adapter = MovieListRVAdapter(movieList)
+                recyclerView.adapter = MovieListRVAdapter(movieList)
+                swipeRefresh.isRefreshing = false
             }
 
             override fun failure(error: RetrofitError) {
+                swipeRefresh.isRefreshing = false
                 toast("API Error")
             }
         })

@@ -12,9 +12,6 @@ import com.brooke.michael.filmbuff.R
 
 import kotlinx.android.synthetic.main.fragment_discover.*
 
-/**
- * Created by Michael on 06-Mar-16.
- */
 class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,8 +20,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        val adapter = MoviePagerAdapter(childFragmentManager)
-        view_pager.adapter = adapter
+        view_pager.adapter = MoviePagerAdapter(childFragmentManager)
         sliding_tabs.setViewPager(view_pager)
     }
 
@@ -32,21 +28,16 @@ class MainFragment : Fragment() {
 
         private val TITLES = arrayOf("This Month", "Most Popular", "Highest Rated")
 
-        override fun getCount(): Int {
-            return TITLES.size
+        override fun getCount(): Int = TITLES.size
+
+        override fun getPageTitle(position: Int): CharSequence = TITLES[position]
+
+        override fun getItem(position: Int): Fragment = when(position){
+            0,1,2 -> ThisMonthFragment()
+            else -> ThisMonthFragment()
         }
 
-        override fun getPageTitle(position: Int): CharSequence {
-            return TITLES[position]
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return ThisMonthFragment()
-        }
-
-        override fun getItemPosition(`object`: Any?): Int {
-            return POSITION_NONE
-        }
+        override fun getItemPosition(`object`: Any?): Int = POSITION_NONE
 
     }
 }
