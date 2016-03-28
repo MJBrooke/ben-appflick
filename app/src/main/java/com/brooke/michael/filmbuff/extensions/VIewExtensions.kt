@@ -13,11 +13,15 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 
+fun toast(view: View, message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(view.context, message, duration).show()
+}
+
 fun ViewGroup.inflateLayout(resID: Int): View {
     return LayoutInflater.from(context).inflate(resID, this, false)
 }
 
-fun ImageView.loadImage(url: String){
+fun ImageView.loadImage(url: String) {
     Picasso.with(context).load(url).into(this)
 }
 
@@ -34,8 +38,8 @@ fun RecyclerView.setupDefaultConfig(context: Context){
     setHasFixedSize(true)
 }
 
-inline fun SwipeRefreshLayout.setupSwipeRefresh(crossinline func: () -> Unit) {
-    setOnRefreshListener { func() }
+inline fun SwipeRefreshLayout.setupSwipeRefresh(crossinline onSwipe: () -> Unit) {
+    setOnRefreshListener { onSwipe() }
     measure(View.MEASURED_SIZE_MASK,View.MEASURED_HEIGHT_STATE_SHIFT)
     isRefreshing = true
 }
