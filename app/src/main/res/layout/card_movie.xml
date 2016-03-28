@@ -29,16 +29,16 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/img_movie"
+                    android:id="@+id/moviePoster"
                     android:layout_width="92dp"
                     android:layout_height="138dp"
                     android:layout_alignParentLeft="true" />
 
                 <TextView
-                    android:id="@+id/txt_title"
+                    android:id="@+id/movieTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/img_movie"
+                    android:layout_toRightOf="@+id/moviePoster"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
@@ -46,17 +46,17 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/txt_summary"
+                    android:id="@+id/movieSynopsis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/img_movie"
+                    android:layout_toRightOf="@+id/moviePoster"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:layout_below="@+id/txt_title" />
+                    android:layout_below="@+id/movieTitle" />
 
                 <io.techery.properratingbar.ProperRatingBar
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/rating_bar"
+                    android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
@@ -65,17 +65,17 @@
                     app:prb_totalTicks="10"
                     app:prb_symbolicTick="*"
                     android:clickable="false"
-                    android:layout_toRightOf="@id/img_movie"
+                    android:layout_toRightOf="@id/moviePoster"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="2dp"/>
 
                 <TextView
-                    android:id="@+id/txt_rating"
+                    android:id="@+id/ratingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/rating_bar"
+                    android:layout_toRightOf="@id/ratingBar"
                     android:layout_marginLeft="2dp"
-                    android:layout_toEndOf="@id/rating_bar"
+                    android:layout_toEndOf="@id/ratingBar"
                     android:paddingBottom="7dp"
                     android:layout_alignParentBottom="true"/>
 

@@ -5,20 +5,17 @@ import com.google.gson.GsonBuilder
 import retrofit.RestAdapter
 import retrofit.converter.GsonConverter
 
-object RestClient {
+class RestClient {
 
-    const val MOVIE_BASE_URL = "https://api.themoviedb.org/3/"
-    const val POSTER_BASE_URL = "http://image.tmdb.org/t/p/w300/"
+    companion object {
+        const val MOVIE_BASE_URL = "https://api.themoviedb.org/3/"
+        const val POSTER_BASE_URL = "http://image.tmdb.org/t/p/w300/"
 
-    fun getMovieClient(): TheMovieDBService{
-        val gsonConverter = GsonConverter(GsonBuilder().serializeNulls().create())
-
-        val adapter = RestAdapter.Builder()
+        val instance = RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(MOVIE_BASE_URL)
-                .setConverter(gsonConverter)
+                .setConverter(GsonConverter(GsonBuilder().serializeNulls().create()))
                 .build()
-
-        return adapter.create(TheMovieDBService::class.java)
+                .create(TheMovieDBService::class.java)
     }
 }

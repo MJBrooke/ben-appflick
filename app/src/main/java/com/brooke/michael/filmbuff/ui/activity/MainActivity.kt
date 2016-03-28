@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 
 import com.brooke.michael.filmbuff.R
+import com.brooke.michael.filmbuff.extensions.changeFragment
 import com.brooke.michael.filmbuff.ui.fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (savedInstanceState != null) {
                 return
             }
-            supportFragmentManager.beginTransaction().add(R.id.fragment_container, MainFragment()).commit()
+            changeFragment(R.id.fragment_container, MainFragment())
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -45,30 +46,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true
+        return when(item.itemId){
+            R.id.action_settings -> true
+            else -> false
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        val id = item.itemId
 
-        when (id) {
+        when (item.itemId) {
             R.id.nav_movies -> {
             }
             R.id.nav_to_watch -> {

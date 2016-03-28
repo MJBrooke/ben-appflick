@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Film Buff</string>
+    <string name="app_name">Ben Appflick</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_drawer_title">Film Buff</string>
     <string name="navigation_drawer_sub_title">Your one stop resource for movies!</string>
 
     <string name="navigation_drawer_movies">Movies</string>
