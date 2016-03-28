@@ -34,8 +34,8 @@ class MainFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence = TITLES[position]
 
         override fun getItem(position: Int): Fragment = when(position){
-            0 -> ThisMonthFragment(TAB_TYPE.THIS_MONTH)
-            else -> ThisMonthFragment(TAB_TYPE.MOST_POPULAR)
+            0 -> TabFragment(TAB_TYPE.THIS_MONTH)
+            else -> TabFragment(TAB_TYPE.MOST_POPULAR)
         }
 
         override fun getItemPosition(`object`: Any?): Int = POSITION_NONE

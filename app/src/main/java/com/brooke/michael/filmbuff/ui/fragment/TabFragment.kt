@@ -16,7 +16,7 @@ import com.brooke.michael.filmbuff.rest.service.RestClient
 import kotlinx.android.synthetic.main.fragment_this_month.*
 
 
-class ThisMonthFragment(val currentTab: TAB_TYPE) : Fragment() {
+class TabFragment(val currentTab: TAB_TYPE) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_this_month, container, false)
