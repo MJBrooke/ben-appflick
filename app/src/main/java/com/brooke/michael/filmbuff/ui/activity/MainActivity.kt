@@ -2,6 +2,7 @@ package com.brooke.michael.filmbuff.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -25,21 +26,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (savedInstanceState != null) {
                 return
             }
-            changeFragment(R.id.fragment_container, MainFragment())
+            changeFragment{ add(R.id.fragment_container, MainFragment()) }
         }
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.setDrawerListener(toggle)
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
-        nav_view.setCheckedItem(R.id.nav_movies)
+        navView.setNavigationItemSelectedListener(this)
+        navView.setCheckedItem(R.id.nav_movies)
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -60,14 +61,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+        var fragment: Fragment? = null
+
         when (item.itemId) {
-            R.id.nav_movies -> {
-            }
-            R.id.nav_to_watch -> {
-            }
+            R.id.nav_movies -> fragment = MainFragment()
+            R.id.nav_to_watch -> fragment = MainFragment()
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        fragment?.let {
+            changeFragment { replace(R.id.fragment_container, fragment) }
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 }
