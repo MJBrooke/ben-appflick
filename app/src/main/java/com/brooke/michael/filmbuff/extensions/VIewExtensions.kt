@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 
-fun toast(view: View, message: String, duration: Int = Toast.LENGTH_SHORT) {
+fun toast(view: View, message: Int, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(view.context, message, duration).show()
 }
 
@@ -40,6 +40,6 @@ fun RecyclerView.setupDefaultConfig(context: Context){
 
 inline fun SwipeRefreshLayout.setupSwipeRefresh(crossinline onSwipe: () -> Unit) {
     setOnRefreshListener { onSwipe() }
-    measure(View.MEASURED_SIZE_MASK,View.MEASURED_HEIGHT_STATE_SHIFT)
+    measure(View.MEASURED_SIZE_MASK, View.MEASURED_HEIGHT_STATE_SHIFT)
     isRefreshing = true
 }
