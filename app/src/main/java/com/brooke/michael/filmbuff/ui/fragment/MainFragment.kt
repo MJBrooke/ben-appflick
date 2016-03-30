@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.brooke.michael.filmbuff.R
-import com.brooke.michael.filmbuff.enum.TAB_TYPE
 
 import kotlinx.android.synthetic.main.fragment_discover.*
 
@@ -33,10 +32,10 @@ class MainFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence = TITLES[position]
 
         override fun getItem(position: Int): Fragment = when(position){
-            0 -> TabFragment(TAB_TYPE.THIS_MONTH)
-            1 -> TabFragment(TAB_TYPE.MOST_POPULAR)
-            2 -> TabFragment(TAB_TYPE.HIGHEST_RATED)
-            else -> TabFragment(TAB_TYPE.THIS_MONTH)
+            0 -> TabFragment(TabType.THIS_MONTH)
+            1 -> TabFragment(TabType.MOST_POPULAR)
+            2 -> TabFragment(TabType.HIGHEST_RATED)
+            else -> TabFragment(TabType.THIS_MONTH)
         }
 
         override fun getItemPosition(`object`: Any?): Int = POSITION_NONE

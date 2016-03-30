@@ -1,6 +1,5 @@
 package com.brooke.michael.filmbuff.extensions
 
-import android.content.Context
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,7 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import com.brooke.michael.filmbuff.R
 import com.squareup.picasso.Picasso
+
+fun toast(view: View, message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(view.context, message, duration).show()
+}
 
 fun toast(view: View, message: Int, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(view.context, message, duration).show()
@@ -22,10 +26,10 @@ fun ViewGroup.inflateLayout(resID: Int): View {
 }
 
 fun ImageView.loadImage(url: String) {
-    Picasso.with(context).load(url).into(this)
+    Picasso.with(context).load(url).placeholder(R.drawable.ic_menu_camera).into(this)
 }
 
-fun RecyclerView.setupDefaultConfig(context: Context){
+fun RecyclerView.setupDefaultConfig(){
     layoutManager = LinearLayoutManager(context)
     setHasFixedSize(true)
 }

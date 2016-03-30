@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.brooke.michael.filmbuff.R
+import com.brooke.michael.filmbuff.adapter.ListType
 import com.brooke.michael.filmbuff.adapter.MovieListRVAdapter
-import com.brooke.michael.filmbuff.enum.TAB_TYPE
 import com.brooke.michael.filmbuff.extensions.setupDefaultConfig
 import com.brooke.michael.filmbuff.extensions.setupSwipeRefresh
 import com.brooke.michael.filmbuff.extensions.toast
@@ -21,35 +21,48 @@ import retrofit.RetrofitError
 import retrofit.client.Response
 
 
-class TabFragment(val currentTab: TAB_TYPE) : Fragment() {
+class TabFragment(val currentTab: TabType) : Fragment() {
+
+    private val callback by lazy { TabFragmentCallback() }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater!!.inflate(R.layout.fragment_this_month, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        recyclerView.setupDefaultConfig(activity)
+        recyclerView.setupDefaultConfig()
         swipeRefresh.setupSwipeRefresh { queryAPI() }
         queryAPI()
     }
 
-    private fun queryAPI() = with(RestClient.instance){
-        val callback = TabFragmentCallback()
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.cancelled = true
+    }
 
-        when(currentTab){
-            TAB_TYPE.THIS_MONTH -> getCurrentMovies(callback)
-            TAB_TYPE.HIGHEST_RATED -> getHighestRatedMovies(callback)
-            TAB_TYPE.MOST_POPULAR -> getMostPopularMovies(callback)
+    private fun queryAPI() {
+        with(RestClient.instance){
+            when(currentTab) {
+                TabType.THIS_MONTH -> getCurrentMovies(callback)
+                TabType.HIGHEST_RATED -> getHighestRatedMovies(callback)
+                TabType.MOST_POPULAR -> getMostPopularMovies(callback)
+            }
         }
     }
 
     private inner class TabFragmentCallback() : Callback<MovieList> {
 
+        var cancelled = false
+
         override fun success(movieList: MovieList, response: Response) {
-            onReceive { recyclerView.adapter = MovieListRVAdapter(movieList) }
+            if(!cancelled) {
+                onReceive { recyclerView.adapter = MovieListRVAdapter(movieList, ListType.API_LIST) }
+            }
         }
 
         override fun failure(error: RetrofitError) {
-            onReceive { toast(recyclerView, R.string.api_error) }
+            if(!cancelled) {
+                onReceive { toast(recyclerView, R.string.api_error) }
+            }
         }
 
         private inline fun onReceive(func: () -> Unit){

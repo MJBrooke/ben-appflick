@@ -12,6 +12,7 @@ import android.view.MenuItem
 import com.brooke.michael.filmbuff.R
 import com.brooke.michael.filmbuff.extensions.changeFragment
 import com.brooke.michael.filmbuff.ui.fragment.MainFragment
+import com.brooke.michael.filmbuff.ui.fragment.WatchlistFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -61,11 +62,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        var fragment: Fragment? = null
-
-        when (item.itemId) {
-            R.id.nav_movies -> fragment = MainFragment()
-            R.id.nav_to_watch -> fragment = MainFragment()
+        val fragment: Fragment? = when (item.itemId) {
+            R.id.nav_movies -> MainFragment()
+            R.id.nav_to_watch -> WatchlistFragment()
+            else -> null
         }
 
         fragment?.let {
