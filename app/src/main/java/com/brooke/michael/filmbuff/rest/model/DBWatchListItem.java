@@ -16,6 +16,10 @@ public class DBWatchListItem extends SugarRecord {
     public DBWatchListItem() {
     }
 
+    public int getMovieID(){
+        return movieId;
+    }
+
     public DBWatchListItem(Movie movie) {
         posterPath = movie.getPoster_path();
         overview = movie.getOverview();

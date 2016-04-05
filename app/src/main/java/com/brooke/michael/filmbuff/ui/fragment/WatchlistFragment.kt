@@ -33,7 +33,6 @@ class WatchlistFragment : Fragment() {
             val movieList = DBWatchListItem.getMovieList(dbEntries)
 
             uiThread {
-                swipeRefresh.isRefreshing = false
                 recyclerView.adapter = MovieListRVAdapter(movieList, ListType.WATCHLIST)
             }
         }

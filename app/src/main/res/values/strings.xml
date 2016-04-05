@@ -11,7 +11,12 @@
     <string name="action_settings">Settings</string>
 
     <string name="api_error">API Error</string>
+
+    <string name="search">Search</string>
+    <string name="search_hint">Enter a movie title...</string>
+
     <string name="content_description">API Error</string>
+
     <string name="movie_removed">Movie successfully removed!</string>
     <string name="movie_added">Movie successfully added!</string>
 </resources>

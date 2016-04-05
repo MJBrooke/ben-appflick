@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
 
     inner class MoviePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        private val TITLES = arrayOf("This Month", "Most Popular", "Highest Rated")
+        private val TITLES = arrayOf("This Month", "Most Popular", "Family Friendly")
 
         override fun getCount(): Int = TITLES.size
 
