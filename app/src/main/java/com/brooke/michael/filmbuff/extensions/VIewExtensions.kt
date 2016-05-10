@@ -48,7 +48,7 @@ fun AppCompatActivity.startSearchActivity(stringExtra: String){
 }
 
 fun ViewGroup.inflateLayout(resID: Int): View {
-    return LayoutInflater.from(context).inflate(resID, this, false)
+    return LayoutInflater.from(context).inflate(resID, null)
 }
 
 fun ImageView.loadImage(url: String) {

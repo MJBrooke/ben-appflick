@@ -7,7 +7,7 @@ import retrofit.http.Query
 
 interface TheMovieDBService {
 
-    @GET("/discover/movie?primary_release_date.gte=2016-02-01&primary_release_date.lte=2016-03-06")
+    @GET("/discover/movie?primary_release_date.gte=2016-03-01&primary_release_date.lte=2016-05-05")
     fun getCurrentMovies(callback: Callback<MovieList>)
 
     @GET("/discover/movie?sort_by=popularity.desc")

@@ -13,10 +13,10 @@
         android:theme="@style/AppTheme">
 
         <!-- Sugar ORM database setup -->
-        <meta-data android:name="DATABASE" android:value="watchlist.db" />
-        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="DATABASE" android:value="benappflick.db" />
+        <meta-data android:name="VERSION" android:value="20" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.brooke.michael.filmbuff.rest.model" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.brooke.michael.filmbuff.rest.model.DBWatchListItem" />
 
         <activity
             android:name=".ui.activity.MainActivity"

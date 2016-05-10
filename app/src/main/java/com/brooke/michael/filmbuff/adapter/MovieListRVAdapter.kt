@@ -8,11 +8,11 @@ import com.brooke.michael.filmbuff.extensions.inflateLayout
 import com.brooke.michael.filmbuff.extensions.loadImage
 import com.brooke.michael.filmbuff.extensions.toast
 import com.brooke.michael.filmbuff.rest.model.DBWatchListItem
-import com.brooke.michael.filmbuff.rest.model.MovieList
 import com.brooke.michael.filmbuff.rest.model.Movie
+import com.brooke.michael.filmbuff.rest.model.MovieList
 import com.brooke.michael.filmbuff.rest.service.RestClient
 import com.orm.query.Select
-import kotlinx.android.synthetic.main.card_movie.view.*;
+import kotlinx.android.synthetic.main.card_movie.view.*
 
 class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : RecyclerView.Adapter<MovieListRVAdapter.MovieViewHolder>() {
 
@@ -29,7 +29,11 @@ class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : Re
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        lateinit var movieRecord: Movie
+
         fun bindMovieHolder(movie: Movie) {
+
+            movieRecord = movie
 
             with(itemView){
                 with(movie){
@@ -38,50 +42,48 @@ class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : Re
                     ratingBar.rating = vote_average.toInt()
                     ratingText.text = "$vote_average/10"
                     movieSynopsis.text = getSynopsisText(overview)
-                    btnAddToWatchList.text = getButtonText(movie)
-                    btnAddToWatchList.setOnClickListener { updateWatchList(movie) }
+                    btnAddToWatchList.text = getButtonText()
+                    btnAddToWatchList.setOnClickListener { updateWatchList() }
                 }
             }
         }
 
-        //TODO - Optimise all of this code to call the database only a single time!
+        private fun requestMovieFromDB() = Select.from(DBWatchListItem::class.java).where("movie_id=${movieRecord.id}").toList()
 
-        private fun getButtonText(movie: Movie): String {
-            val dbRequest = Select.from(DBWatchListItem::class.java).where("movie_id=${movie.id}").toList()
+        private fun getMovie() = requestMovieFromDB()[0] as DBWatchListItem
 
-            return if(dbRequest.isEmpty()) "Add" else "Remove"
+        private fun getButtonText(): String = if(requestMovieFromDB().isEmpty()) "Add" else "Remove"
+
+        private fun removeMovieFromAdapter(){
+            if(listType == ListType.WATCHLIST) {
+                mMovieList.results.remove(movieRecord)
+                notifyDataSetChanged()
+            }
         }
 
-        private fun updateWatchList(movie: Movie){
+        private fun addMovieToWatchlist(){
+            val dbItem = DBWatchListItem(movieRecord)
+            dbItem.save()
+            toast(itemView, "Movie added!")
+        }
 
-            fun addMovieToWatchlist(){
-                val dbItem = DBWatchListItem(movie)
-                dbItem.save()
-                toast(itemView, "Movie successfully added!")
-            }
+        private fun removeMovieFromWatchlist(dbItem: DBWatchListItem){
+            dbItem.delete()
+            removeMovieFromAdapter()
+            toast(itemView, "Movie removed!")
+        }
 
-            fun removeMovieFromAdapter(){
-                if(listType == ListType.WATCHLIST) {
-                    mMovieList.results.remove(movie)
-                    this@MovieListRVAdapter.notifyDataSetChanged()
-                }
-            }
+        private fun updateWatchList(){
 
-            fun removeMovieFromWatchlist(dbItem: DBWatchListItem){
-                dbItem.delete()
-                removeMovieFromAdapter()
-                toast(itemView, "Movie successfully removed!")
-            }
-
-            val dbRequest = Select.from(DBWatchListItem::class.java).where("movie_id=${movie.id}").toList()
+            val dbRequest = requestMovieFromDB()
 
             if(dbRequest.isEmpty()){
                 addMovieToWatchlist()
             } else {
-                removeMovieFromWatchlist(dbRequest[0] as DBWatchListItem)
+                removeMovieFromWatchlist(getMovie())
             }
 
-            itemView.btnAddToWatchList.text = getButtonText(movie)
+            itemView.btnAddToWatchList.text = getButtonText()
         }
 
         private fun getSynopsisText(summary: String): String {

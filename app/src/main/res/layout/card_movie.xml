@@ -43,7 +43,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -53,6 +53,7 @@
                 android:layout_toEndOf="@+id/moviePoster"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
+                android:textSize="12sp"
                 android:layout_below="@+id/movieTitle" />
 
             <io.techery.properratingbar.ProperRatingBar
@@ -81,9 +82,8 @@
 
             <Button
                 android:id="@+id/btnAddToWatchList"
-                android:text="Add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"/>
 

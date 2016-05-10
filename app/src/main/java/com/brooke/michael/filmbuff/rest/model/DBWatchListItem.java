@@ -13,8 +13,7 @@ public class DBWatchListItem extends SugarRecord {
     int movieId;
     double voteAverage;
 
-    public DBWatchListItem() {
-    }
+    public DBWatchListItem() {}
 
     public int getMovieID(){
         return movieId;
