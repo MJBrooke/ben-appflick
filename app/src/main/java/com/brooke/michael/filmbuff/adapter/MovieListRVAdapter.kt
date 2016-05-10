@@ -30,6 +30,7 @@ class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : Re
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         lateinit var movieRecord: Movie
+        var expanded = false
 
         fun bindMovieHolder(movie: Movie) {
 
@@ -41,10 +42,20 @@ class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : Re
                     movieTitle.text = original_title
                     ratingBar.rating = vote_average.toInt()
                     ratingText.text = "$vote_average/10"
-                    movieSynopsis.text = getSynopsisText(overview)
+                    movieSynopsis.text = getSynopsisText()
                     btnAddToWatchList.text = getButtonText()
                     btnAddToWatchList.setOnClickListener { updateWatchList() }
                 }
+            }
+
+            itemView.setOnClickListener {
+
+                itemView.movieSynopsis.text = if(!expanded)
+                    movieRecord.overview
+                else
+                    getSynopsisText()
+
+                expanded = !expanded
             }
         }
 
@@ -86,11 +97,14 @@ class MovieListRVAdapter(val mMovieList: MovieList, val listType: ListType) : Re
             itemView.btnAddToWatchList.text = getButtonText()
         }
 
-        private fun getSynopsisText(summary: String): String {
+        private fun getSynopsisText(): String {
 
-            return if (summary.length > 150) {
+            val maxCharacters = 190
+            val summary = movieRecord.overview
 
-                val indexOfLastSpace = summary.indexOf(" ", 150)
+            return if (summary.length > maxCharacters) {
+
+                val indexOfLastSpace = summary.indexOf(" ", maxCharacters)
 
                 if (indexOfLastSpace > -1) {
                     "${summary.substring(0, indexOfLastSpace)}... [Click for more]"

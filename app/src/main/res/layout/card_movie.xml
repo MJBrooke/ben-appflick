@@ -33,7 +33,7 @@
                 android:contentDescription="@string/content_description"
                 android:layout_width="92dp"
                 android:layout_height="138dp"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"/>
 
             <TextView
                 android:id="@+id/movieTitle"
@@ -53,8 +53,10 @@
                 android:layout_toEndOf="@+id/moviePoster"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
+                android:layout_marginBottom="40dp"
                 android:textSize="12sp"
-                android:layout_below="@+id/movieTitle" />
+                android:layout_below="@+id/movieTitle"
+                />
 
             <io.techery.properratingbar.ProperRatingBar
                 xmlns:app="http://schemas.android.com/apk/res-auto"
